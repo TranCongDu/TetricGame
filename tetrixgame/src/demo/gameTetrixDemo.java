@@ -1,5 +1,7 @@
 package demo;
 
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -7,6 +9,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 //import tetrix.gameData;
 //import tetrix02.cTetrixPanel;
@@ -26,6 +30,11 @@ public class gameTetrixDemo extends JFrame {
     cBoardPanel pGame = new cBoardPanel();
     int nNumberPieces = 0;
     Timer tAutoRunDown;
+    JLabel lblscore = new JLabel("Score : ");
+    int score =0;
+    
+    
+    JTextArea txtscore2 = new JTextArea("");
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
     int iDelayMove = 400;
@@ -35,14 +44,20 @@ public class gameTetrixDemo extends JFrame {
         // init
         setLayout(null);
         setSize(450, 550);
-
+       
         cBoardGame_Tetrix.initGame();
-
         add(pGame);
+        add(lblscore);
         add( btnStart);
+        add(txtscore2);
         pGame.setBounds(20, 20, 241, 421);
         btnStart.setBounds(300, 20, 60, 25);
-                
+        lblscore.setBounds(280, 60, 50, 30);
+        txtscore2.setBounds(335, 65, 70, 20);
+        txtscore2.setEditable(false);
+        Font f = txtscore2.getFont();
+        txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
+       
         btnStart.addActionListener( new ActionListener() {
 
             @Override
@@ -58,6 +73,7 @@ public class gameTetrixDemo extends JFrame {
   					tAutoRunDown.start();
   					pGame.requestFocus();
   					btnStart.setText("||");
+  					
                 }
             }
         });
@@ -114,18 +130,28 @@ public class gameTetrixDemo extends JFrame {
                 	cBoardGame_Tetrix.moveDown();
                 } else {
                 	// died, could not move
+                	
                 	int iStoppedX = cBoardGame_Tetrix.getActiveRow();                        
                     int nMoveScore = cBoardGame_Tetrix.clearFullRow();
 System.out.println("Collapsed "+ nMoveScore + " Line(s).");
+					score = score + nMoveScore;
+//					txtscore.setText(""+nMoveScore);
+//					String s1 = txtscore.getText();
+//					int number = Integer.parseInt(s1);
+					//System.out.println(score);
 					// scoring and set level here
+					txtscore2.setText(""+score);
                     if( cBoardGame_Tetrix.isGameOver()){
                         //end of game
                         System.err.println("Game Overs");
                         tAutoRunDown.stop();
+                        score = 0;
                     } else {
                         nNumberPieces++;
                         cBoardGame_Tetrix.newBrick();
-System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());                        
+System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());   
+					String s=cBoardGame_Tetrix.getNextBrickName();
+					
                     }
                 }               
             }
@@ -135,6 +161,13 @@ System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());
     /**
      * @param args
      */
+    public void paintComponent(Graphics g) {
+    	
+    	super.paintComponents(g);
+    	
+    	
+    	
+    }
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         gameTetrixDemo mainWindow = new gameTetrixDemo();
