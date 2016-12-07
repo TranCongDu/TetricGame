@@ -2,11 +2,14 @@ package demo;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import javax.swing.JFrame;
@@ -33,8 +36,18 @@ public class gameTetrixDemo extends JFrame {
     int nNumberPieces = 0;
     Timer tAutoRunDown;
     JLabel lblscore = new JLabel("Score : ");
+    JLabel lblimage = new JLabel("");
+    
     int score =0;
     
+    //new Images
+    ImageIcon imgO = new ImageIcon("images/O.png");
+    ImageIcon imgS = new ImageIcon("images/S.jpg");
+    ImageIcon imgZ = new ImageIcon("images/Z.jpg");
+    ImageIcon imgJ = new ImageIcon("images/J.jpg");
+    ImageIcon imgI = new ImageIcon("images/I.jpg");
+    ImageIcon imgT = new ImageIcon("images/T.jpg");
+    ImageIcon imgL = new ImageIcon("images/L.jpg");
     
     
     JTextArea txtscore2 = new JTextArea("");
@@ -57,6 +70,7 @@ public class gameTetrixDemo extends JFrame {
         add( btnStart);
         add(txtscore2);
         add(btnStop);
+        add(lblimage);
         pGame.setBounds(20, 20, 241, 421);
         
         btnNewGame.setBounds(300, 20, 80, 25);
@@ -70,6 +84,7 @@ public class gameTetrixDemo extends JFrame {
         btnStop.setMargin(margin);
         
         lblscore.setBounds(280, 110, 50, 30);
+        lblimage.setBounds(320, 150, 80, 80);
         txtscore2.setBounds(335, 115, 70, 20);
         txtscore2.setEditable(false);
         Font f = txtscore2.getFont();
@@ -83,6 +98,9 @@ public class gameTetrixDemo extends JFrame {
 				cBoardGame_Tetrix.initGame();
 			}
 		});
+        
+       
+        
         btnNewGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -90,7 +108,8 @@ public class gameTetrixDemo extends JFrame {
 				// TODO Auto-generated method stub
 				tAutoRunDown.start();
 				cBoardGame_Tetrix.initGame();
-				 
+				pGame.requestFocus();
+				tAutoRunDown.setInitialDelay(1000);
 			}
 		});
        
@@ -187,7 +206,30 @@ System.out.println("Collapsed "+ nMoveScore + " Line(s).");
                         cBoardGame_Tetrix.newBrick();
 System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());   
 					String s=cBoardGame_Tetrix.getNextBrickName();
-					
+					 
+					if (s=="O"){
+						lblimage.setIcon(imgO);
+					}else{
+					if (s=="J"){
+						lblimage.setIcon(imgJ);
+					}else{
+					if (s=="I"){
+						lblimage.setIcon(imgI);
+					}else{
+					if (s=="L"){
+						lblimage.setIcon(imgL);
+					}else{
+					if (s=="T"){
+						lblimage.setIcon(imgT);
+					}else{
+					if (s=="S"){
+						lblimage.setIcon(imgS);
+					}else{
+					if (s=="Z"){
+						lblimage.setIcon(imgZ);
+					}
+					}}}}}
+					}
                     }
                 }               
             }
@@ -200,7 +242,7 @@ System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());
     public void paintComponent(Graphics g) {
     	
     	super.paintComponents(g);
-    	
+    	g.drawImage(imgO.getImage(), 300, 100, 100, 100, null);
     	
     	
     }
