@@ -41,7 +41,8 @@ public class gameTetrixDemo extends JFrame {
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
     int iDelayMove = 400;
-    JButton btnStart = new JButton(">");
+    JButton btnStart = new JButton("Resume");
+    JButton btnStop = new JButton("Stop");
     JButton btnNewGame = new JButton("New Game");
  
     public gameTetrixDemo() {
@@ -55,17 +56,33 @@ public class gameTetrixDemo extends JFrame {
         add(lblscore);
         add( btnStart);
         add(txtscore2);
+        add(btnStop);
         pGame.setBounds(20, 20, 241, 421);
         
-        btnNewGame.setBounds(280, 20, 80, 25);
-        btnStart.setBounds(370, 20, 60, 25);
+        btnNewGame.setBounds(300, 20, 80, 25);
+        btnStart.setBounds(300, 50, 80, 25);
+        btnStop.setBounds(300, 80, 80, 25);
+        
+        //set margin for button
         Insets margin = new Insets(1, 1, 1, 1);
         btnNewGame.setMargin(margin);
-        lblscore.setBounds(280, 60, 50, 30);
-        txtscore2.setBounds(335, 65, 70, 20);
+        btnStart.setMargin(margin);
+        btnStop.setMargin(margin);
+        
+        lblscore.setBounds(280, 110, 50, 30);
+        txtscore2.setBounds(335, 115, 70, 20);
         txtscore2.setEditable(false);
         Font f = txtscore2.getFont();
         txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
+        btnStop.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				tAutoRunDown.stop();
+				cBoardGame_Tetrix.initGame();
+			}
+		});
         btnNewGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -84,14 +101,14 @@ public class gameTetrixDemo extends JFrame {
                 //throw new UnsupportedOperationException("Not supported yet.");
                 if( tAutoRunDown.isRunning()){
                 	tAutoRunDown.stop();
-                    btnStart.setText(">");
+                    btnStart.setText("Continues");
                 }
                 else{
-  					cBoardGame_Tetrix.newBrick();
+  					
   					tAutoRunDown.setInitialDelay(1000);
   					tAutoRunDown.start();
   					pGame.requestFocus();
-  					btnStart.setText("||");
+  					btnStart.setText("Resume");
   					
                 }
             }
