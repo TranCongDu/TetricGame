@@ -2,6 +2,7 @@ package demo;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,10 +29,12 @@ import pTetrixGame.cBoardGame_Tetrix;
 public class gameTetrixDemo extends JFrame {
 
     cBoardPanel pGame = new cBoardPanel();
+   
     int nNumberPieces = 0;
     Timer tAutoRunDown;
     JLabel lblscore = new JLabel("Score : ");
     int score =0;
+    
     
     
     JTextArea txtscore2 = new JTextArea("");
@@ -39,6 +42,7 @@ public class gameTetrixDemo extends JFrame {
     KeyListener keyControl = null;
     int iDelayMove = 400;
     JButton btnStart = new JButton(">");
+    JButton btnNewGame = new JButton("New Game");
  
     public gameTetrixDemo() {
         // init
@@ -47,16 +51,31 @@ public class gameTetrixDemo extends JFrame {
        
         cBoardGame_Tetrix.initGame();
         add(pGame);
+        add(btnNewGame);
         add(lblscore);
         add( btnStart);
         add(txtscore2);
         pGame.setBounds(20, 20, 241, 421);
-        btnStart.setBounds(300, 20, 60, 25);
+        
+        btnNewGame.setBounds(280, 20, 80, 25);
+        btnStart.setBounds(370, 20, 60, 25);
+        Insets margin = new Insets(1, 1, 1, 1);
+        btnNewGame.setMargin(margin);
         lblscore.setBounds(280, 60, 50, 30);
         txtscore2.setBounds(335, 65, 70, 20);
         txtscore2.setEditable(false);
         Font f = txtscore2.getFont();
         txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
+        btnNewGame.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				tAutoRunDown.start();
+				cBoardGame_Tetrix.initGame();
+				 
+			}
+		});
        
         btnStart.addActionListener( new ActionListener() {
 
