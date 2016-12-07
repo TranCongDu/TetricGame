@@ -37,6 +37,7 @@ public class gameTetrixDemo extends JFrame {
     Timer tAutoRunDown;
     JLabel lblscore = new JLabel("Score : ");
     JLabel lblimage = new JLabel("");
+    JLabel lblNEXT = new JLabel("NEXT");
     
     int score =0;
     
@@ -71,6 +72,7 @@ public class gameTetrixDemo extends JFrame {
         add(txtscore2);
         add(btnStop);
         add(lblimage);
+        add(lblNEXT);
         pGame.setBounds(20, 20, 241, 421);
         
         btnNewGame.setBounds(300, 20, 80, 25);
@@ -84,11 +86,13 @@ public class gameTetrixDemo extends JFrame {
         btnStop.setMargin(margin);
         
         lblscore.setBounds(280, 110, 50, 30);
-        lblimage.setBounds(320, 150, 80, 80);
+        lblimage.setBounds(320, 180, 80, 80);
+        lblNEXT.setBounds(320, 155, 80, 30);
         txtscore2.setBounds(335, 115, 70, 20);
         txtscore2.setEditable(false);
         Font f = txtscore2.getFont();
         txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
+        lblNEXT.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 8));
         btnStop.addActionListener(new ActionListener() {
 			
 			@Override
