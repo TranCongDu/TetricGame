@@ -9,11 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 //import tetrix.gameData;
@@ -36,8 +39,10 @@ public class gameTetrixDemo extends JFrame {
     int nNumberPieces = 0;
     Timer tAutoRunDown;
     JLabel lblscore = new JLabel("Score : ");
+    JLabel lblHighScore = new JLabel("High Score ");
     JLabel lblimage = new JLabel("");
     JLabel lblNEXT = new JLabel("NEXT");
+    JLabel lblhighscore = new JLabel("");
     
     int score =0;
     
@@ -49,12 +54,13 @@ public class gameTetrixDemo extends JFrame {
     ImageIcon imgI = new ImageIcon("images/I.jpg");
     ImageIcon imgT = new ImageIcon("images/T.jpg");
     ImageIcon imgL = new ImageIcon("images/L.jpg");
-    
-    
+    JRadioButton rdb1 = new JRadioButton("Ease");
+    JRadioButton rdb2 = new JRadioButton("Normal");
+    JRadioButton rdb3 = new JRadioButton("Crazy");
     JTextArea txtscore2 = new JTextArea("");
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
-    int iDelayMove = 400;
+    int iDelayMove ;
     JButton btnStart = new JButton("Resume");
     JButton btnStop = new JButton("Stop");
     JButton btnNewGame = new JButton("New Game");
@@ -73,6 +79,11 @@ public class gameTetrixDemo extends JFrame {
         add(btnStop);
         add(lblimage);
         add(lblNEXT);
+        add(lblHighScore);
+        add(lblhighscore);
+        add(rdb1);
+        add(rdb2);
+        add(rdb3);
         pGame.setBounds(20, 20, 241, 421);
         
         btnNewGame.setBounds(300, 20, 80, 25);
@@ -86,13 +97,25 @@ public class gameTetrixDemo extends JFrame {
         btnStop.setMargin(margin);
         
         lblscore.setBounds(280, 110, 50, 30);
+        lblHighScore.setBounds(300, 300, 120, 30);
+        lblhighscore.setBounds(335, 340, 120, 30);
         lblimage.setBounds(320, 180, 80, 80);
         lblNEXT.setBounds(320, 155, 80, 30);
+        rdb1.setBounds(300, 380, 60, 30);
+        rdb2.setBounds(300, 410, 80, 30);
+        rdb3.setBounds(300, 440, 60, 30);
+        
+        ButtonGroup btngroup = new ButtonGroup();
+        btngroup.add(rdb1);
+        btngroup.add(rdb2);
+        btngroup.add(rdb3);
         txtscore2.setBounds(335, 115, 70, 20);
         txtscore2.setEditable(false);
         Font f = txtscore2.getFont();
         txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
         lblNEXT.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 8));
+        lblHighScore.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 7));
+        lblhighscore.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 5));
         btnStop.addActionListener(new ActionListener() {
 			
 			@Override
@@ -100,6 +123,7 @@ public class gameTetrixDemo extends JFrame {
 				// TODO Auto-generated method stub
 				tAutoRunDown.stop();
 				cBoardGame_Tetrix.initGame();
+				score=0;
 			}
 		});
         
@@ -110,10 +134,29 @@ public class gameTetrixDemo extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+
 				tAutoRunDown.start();
 				cBoardGame_Tetrix.initGame();
 				pGame.requestFocus();
 				tAutoRunDown.setInitialDelay(1000);
+				score =0;
+				if(rdb1.isSelected()){
+					iDelayMove = 600;
+				}else
+				{
+					if(rdb2.isSelected()){
+					iDelayMove = 400;
+				}else
+				{if(rdb3.isSelected()){
+					iDelayMove = 300;
+				}
+				else{
+					JOptionPane.showMessageDialog(btnNewGame, "Please Choose Level before Started");
+				}
+				
+				}
+				}
+				
 			}
 		});
        
@@ -177,7 +220,7 @@ public class gameTetrixDemo extends JFrame {
         this.addKeyListener(keyControl);
         // pGame.aData[10][3]=2;
 
-      
+
         tAutoRunDown = new Timer(iDelayMove, new ActionListener() {
 
             @Override
@@ -205,6 +248,7 @@ System.out.println("Collapsed "+ nMoveScore + " Line(s).");
                         System.err.println("Game Overs");
                         tAutoRunDown.stop();
                         score = 0;
+
                     } else {
                         nNumberPieces++;
                         cBoardGame_Tetrix.newBrick();
