@@ -60,7 +60,8 @@ public class gameTetrixDemo extends JFrame {
     JTextArea txtscore2 = new JTextArea("");
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
-    int iDelayMove ;
+    int iDelayMove = 800 ;
+   
     JButton btnStart = new JButton("Resume");
     JButton btnStop = new JButton("Stop");
     JButton btnNewGame = new JButton("New Game");
@@ -134,28 +135,29 @@ public class gameTetrixDemo extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				
 				tAutoRunDown.start();
 				cBoardGame_Tetrix.initGame();
 				pGame.requestFocus();
 				tAutoRunDown.setInitialDelay(1000);
 				score =0;
 				if(rdb1.isSelected()){
-					iDelayMove = 600;
-				}else
-				{
-					if(rdb2.isSelected()){
-					iDelayMove = 400;
-				}else
-				{if(rdb3.isSelected()){
-					iDelayMove = 300;
-				}
-				else{
-					JOptionPane.showMessageDialog(btnNewGame, "Please Choose Level before Started");
-				}
-				
-				}
-				}
+			       	 int iDelayMove1 = 600;
+			       	iDelayMove1 = iDelayMove;
+			       	lblhighscore.setText(""+iDelayMove1);
+			       }
+			       if(rdb2.isSelected()){
+			       	 int iDelayMove1 = 400;
+			     	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
+			       }
+			       
+			       if(rdb3.isSelected()){
+			       	int iDelayMove1 = 300;
+			    	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
+			       }
+			       
+			       
+
 				
 			}
 		});
@@ -220,12 +222,26 @@ public class gameTetrixDemo extends JFrame {
         this.addKeyListener(keyControl);
         // pGame.aData[10][3]=2;
 
-
+        
         tAutoRunDown = new Timer(iDelayMove, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
+            	if(rdb1.isSelected()){
+			       	 int iDelayMove1 = 600;
+			       	iDelayMove1 = iDelayMove;
+			       	lblhighscore.setText(""+iDelayMove1);
+			       }
+			       if(rdb2.isSelected()){
+			       	 int iDelayMove1 = 400;
+			     	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
+			       }
+			       
+			       if(rdb3.isSelected()){
+			       	int iDelayMove1 = 300;
+			    	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
+			       }
                 boolean bl = cBoardGame_Tetrix.checkMoveDown();
                 if ( bl ) {
                 	// can move more
@@ -235,12 +251,9 @@ public class gameTetrixDemo extends JFrame {
                 	
                 	int iStoppedX = cBoardGame_Tetrix.getActiveRow();                        
                     int nMoveScore = cBoardGame_Tetrix.clearFullRow();
-System.out.println("Collapsed "+ nMoveScore + " Line(s).");
+                    System.out.println("Collapsed "+ nMoveScore + " Line(s).");
 					score = score + nMoveScore;
-//					txtscore.setText(""+nMoveScore);
-//					String s1 = txtscore.getText();
-//					int number = Integer.parseInt(s1);
-					//System.out.println(score);
+
 					// scoring and set level here
 					txtscore2.setText(""+score);
                     if( cBoardGame_Tetrix.isGameOver()){
@@ -252,7 +265,7 @@ System.out.println("Collapsed "+ nMoveScore + " Line(s).");
                     } else {
                         nNumberPieces++;
                         cBoardGame_Tetrix.newBrick();
-System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());   
+                        System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());   
 					String s=cBoardGame_Tetrix.getNextBrickName();
 					 
 					if (s=="O"){
