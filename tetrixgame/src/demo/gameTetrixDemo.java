@@ -8,6 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -54,13 +59,11 @@ public class gameTetrixDemo extends JFrame {
     ImageIcon imgI = new ImageIcon("images/I.jpg");
     ImageIcon imgT = new ImageIcon("images/T.jpg");
     ImageIcon imgL = new ImageIcon("images/L.jpg");
-    JRadioButton rdb1 = new JRadioButton("Ease");
-    JRadioButton rdb2 = new JRadioButton("Normal");
-    JRadioButton rdb3 = new JRadioButton("Crazy");
+
     JTextArea txtscore2 = new JTextArea("");
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
-    int iDelayMove = 800 ;
+    int iDelayMove = 350 ;
    
     JButton btnStart = new JButton("Resume");
     JButton btnStop = new JButton("Stop");
@@ -82,9 +85,7 @@ public class gameTetrixDemo extends JFrame {
         add(lblNEXT);
         add(lblHighScore);
         add(lblhighscore);
-        add(rdb1);
-        add(rdb2);
-        add(rdb3);
+
         pGame.setBounds(20, 20, 241, 421);
         
         btnNewGame.setBounds(300, 20, 80, 25);
@@ -102,14 +103,8 @@ public class gameTetrixDemo extends JFrame {
         lblhighscore.setBounds(335, 340, 120, 30);
         lblimage.setBounds(320, 180, 80, 80);
         lblNEXT.setBounds(320, 155, 80, 30);
-        rdb1.setBounds(300, 380, 60, 30);
-        rdb2.setBounds(300, 410, 80, 30);
-        rdb3.setBounds(300, 440, 60, 30);
-        
-        ButtonGroup btngroup = new ButtonGroup();
-        btngroup.add(rdb1);
-        btngroup.add(rdb2);
-        btngroup.add(rdb3);
+
+
         txtscore2.setBounds(335, 115, 70, 20);
         txtscore2.setEditable(false);
         Font f = txtscore2.getFont();
@@ -141,22 +136,7 @@ public class gameTetrixDemo extends JFrame {
 				pGame.requestFocus();
 				tAutoRunDown.setInitialDelay(1000);
 				score =0;
-				if(rdb1.isSelected()){
-			       	 int iDelayMove1 = 600;
-			       	iDelayMove1 = iDelayMove;
-			       	lblhighscore.setText(""+iDelayMove1);
-			       }
-			       if(rdb2.isSelected()){
-			       	 int iDelayMove1 = 400;
-			     	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
-			       }
-			       
-			       if(rdb3.isSelected()){
-			       	int iDelayMove1 = 300;
-			    	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
-			       }
-			       
-			       
+
 
 				
 			}
@@ -228,20 +208,7 @@ public class gameTetrixDemo extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-            	if(rdb1.isSelected()){
-			       	 int iDelayMove1 = 600;
-			       	iDelayMove1 = iDelayMove;
-			       	lblhighscore.setText(""+iDelayMove1);
-			       }
-			       if(rdb2.isSelected()){
-			       	 int iDelayMove1 = 400;
-			     	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
-			       }
-			       
-			       if(rdb3.isSelected()){
-			       	int iDelayMove1 = 300;
-			    	iDelayMove1 = iDelayMove;	lblhighscore.setText(""+iDelayMove1);
-			       }
+            	
                 boolean bl = cBoardGame_Tetrix.checkMoveDown();
                 if ( bl ) {
                 	// can move more
@@ -253,14 +220,27 @@ public class gameTetrixDemo extends JFrame {
                     int nMoveScore = cBoardGame_Tetrix.clearFullRow();
                     System.out.println("Collapsed "+ nMoveScore + " Line(s).");
 					score = score + nMoveScore;
-
-					// scoring and set level here
+//                    String s1;
+//                    BufferedReader bfrIn = new BufferedReader(new InputStreamReader(System.in));
+//                    try {
+//						BufferedWriter bfrOut = new BufferedWriter(new FileWriter("Data/highScore.txt"));
+//						do{
+//							s1 = String.valueOf(score);
+//							s1=bfrIn.readLine();
+//							bfrOut.write(s1);
+//							bfrOut.newLine();
+//						}while(!s1.equalsIgnoreCase("eof"));
+//				        System.out.print("Write Successful");
+//				       
+//                    } catch(IOException e1) {
+//                        System.out.println("Error during reading/writing");
+//                    }
+					
 					txtscore2.setText(""+score);
                     if( cBoardGame_Tetrix.isGameOver()){
                         //end of game
                         System.err.println("Game Overs");
                         tAutoRunDown.stop();
-                        score = 0;
 
                     } else {
                         nNumberPieces++;
