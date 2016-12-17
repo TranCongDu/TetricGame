@@ -63,7 +63,7 @@ public class gameTetrixDemo extends JFrame {
     JTextArea txtscore2 = new JTextArea("");
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
-    int iDelayMove = 400 ;
+    int iDelayMove = 350 ;
    
     JButton btnStart = new JButton("Resume");
     JButton btnStop = new JButton("Stop");
@@ -71,137 +71,141 @@ public class gameTetrixDemo extends JFrame {
  
     public gameTetrixDemo() {
         // init
-        setLayout(null);
-        setSize(450, 550);
-       
-        cBoardGame_Tetrix.initGame();
-        add(pGame);
-        add(btnNewGame);
-        add(lblscore);
-        add( btnStart);
-        add(txtscore2);
-        add(btnStop);
-        add(lblimage);
-        add(lblNEXT);
-        add(lblHighScore);
-        add(lblhighscore);
 
-        pGame.setBounds(20, 20, 241, 421);
-        
-        btnNewGame.setBounds(300, 20, 80, 25);
-        btnStart.setBounds(300, 50, 80, 25);
-        btnStop.setBounds(300, 80, 80, 25);
-        
-        //set margin for button
-        Insets margin = new Insets(1, 1, 1, 1);
-        btnNewGame.setMargin(margin);
-        btnStart.setMargin(margin);
-        btnStop.setMargin(margin);
-        
-        lblscore.setBounds(280, 110, 50, 30);
-        lblHighScore.setBounds(300, 300, 120, 30);
-        lblhighscore.setBounds(335, 340, 120, 30);
-        lblimage.setBounds(320, 180, 80, 80);
-        lblNEXT.setBounds(320, 155, 80, 30);
-
-
-        txtscore2.setBounds(335, 115, 70, 20);
-        txtscore2.setEditable(false);
-        Font f = txtscore2.getFont();
-        txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
-        lblNEXT.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 8));
-        lblHighScore.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 7));
-        lblhighscore.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 5));
-        btnStop.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				tAutoRunDown.stop();
-				cBoardGame_Tetrix.initGame();
-				score=0;
-			}
-		});
-        
-       
-        
-        btnNewGame.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				tAutoRunDown.start();
-				cBoardGame_Tetrix.initGame();
-				pGame.requestFocus();
-				tAutoRunDown.setInitialDelay(1000);
-				score =0;
-
-
-				
-			}
-		});
-       
-        btnStart.addActionListener( new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //throw new UnsupportedOperationException("Not supported yet.");
-                if( tAutoRunDown.isRunning()){
-                	tAutoRunDown.stop();
-                    btnStart.setText("Continues");
-                }
-                else{
-  					
-  					tAutoRunDown.setInitialDelay(1000);
-  					tAutoRunDown.start();
-  					pGame.requestFocus();
-  					btnStart.setText("Resume");
-  					
-                }
-            }
-        });
-
-        keyControl = new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent arg0) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void keyReleased(KeyEvent arg0) {
-                // TODO Auto-generated method stub
-                if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
-                    // move left
-                    if (cBoardGame_Tetrix.checkMoveLeft()) {
-                    	cBoardGame_Tetrix.moveLeft();                       
-                    }
-                }
-                if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    // move right
-                    if (cBoardGame_Tetrix.checkMoveRight()) {
-                    	cBoardGame_Tetrix.moveRight();                    	
-                    }
-                }
-              
-                if (arg0.getKeyCode() == KeyEvent.VK_UP) {
-                    if (cBoardGame_Tetrix.checkRotate()) {
-                    	cBoardGame_Tetrix.rotate();   
-                    }
-                }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent arg0) {
-                // TODO Auto-generated method stub
-             }
-        };
-
-        pGame.addKeyListener(keyControl);
-        this.addKeyListener(keyControl);
         // pGame.aData[10][3]=2;
+        int iDelayMove = 200;
+        
 
+	        setLayout(null);
+	        setSize(450, 550);
+	        setTitle("T150793 – Tetrix Game");
+	        cBoardGame_Tetrix.initGame();
+	        add(pGame);
+	        add(btnNewGame);
+	        add(lblscore);
+	        add( btnStart);
+	        add(txtscore2);
+	        add(btnStop);
+	        add(lblimage);
+	        add(lblNEXT);
+	        add(lblHighScore);
+	        add(lblhighscore);
+
+	        pGame.setBounds(20, 20, 241, 421);
+	        
+	        btnNewGame.setBounds(300, 20, 80, 25);
+	        btnStart.setBounds(300, 50, 80, 25);
+	        btnStop.setBounds(300, 80, 80, 25);
+	        
+	        //set margin for button
+	        Insets margin = new Insets(1, 1, 1, 1);
+	        btnNewGame.setMargin(margin);
+	        btnStart.setMargin(margin);
+	        btnStop.setMargin(margin);
+	        
+	        lblscore.setBounds(280, 110, 50, 30);
+	        lblHighScore.setBounds(300, 300, 120, 30);
+	        lblhighscore.setBounds(335, 340, 120, 30);
+	        lblimage.setBounds(320, 180, 80, 80);
+	        lblNEXT.setBounds(320, 155, 80, 30);
+
+
+	        txtscore2.setBounds(335, 115, 70, 20);
+	        txtscore2.setEditable(false);
+	        Font f = txtscore2.getFont();
+	        txtscore2.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 4));
+	        lblNEXT.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 8));
+	        lblHighScore.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 7));
+	        lblhighscore.setFont(new Font(f.getName(), Font.BOLD, f.getSize() + 5));
+	        //set function button
+	        btnStop.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					tAutoRunDown.stop();
+					cBoardGame_Tetrix.initGame();
+					score=0;
+				}
+			});
+	        
+	       
+	        
+	        btnNewGame.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+					tAutoRunDown.start();
+					cBoardGame_Tetrix.initGame();
+					pGame.requestFocus();
+					tAutoRunDown.setInitialDelay(1000);
+					score =0;
+
+
+					
+				}
+			});
+	       
+	        btnStart.addActionListener( new ActionListener() {
+
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                //throw new UnsupportedOperationException("Not supported yet.");
+	                if( tAutoRunDown.isRunning()){
+	                	tAutoRunDown.stop();
+	                    btnStart.setText("Continues");
+	                }
+	                else{
+	  					
+	  					tAutoRunDown.setInitialDelay(1000);
+	  					tAutoRunDown.start();
+	  					pGame.requestFocus();
+	  					btnStart.setText("Resume");
+	  					
+	                }
+	            }
+	        });
+
+	        keyControl = new KeyListener() {
+
+	            @Override
+	            public void keyTyped(KeyEvent arg0) {
+	                // TODO Auto-generated method stub
+	            }
+
+	            @Override
+	            public void keyReleased(KeyEvent arg0) {
+	                // TODO Auto-generated method stub
+	                if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
+	                    // move left
+	                    if (cBoardGame_Tetrix.checkMoveLeft()) {
+	                    	cBoardGame_Tetrix.moveLeft();                       
+	                    }
+	                }
+	                if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
+	                    // move right
+	                    if (cBoardGame_Tetrix.checkMoveRight()) {
+	                    	cBoardGame_Tetrix.moveRight();                    	
+	                    }
+	                }
+	              
+	                if (arg0.getKeyCode() == KeyEvent.VK_UP) {
+	                    if (cBoardGame_Tetrix.checkRotate()) {
+	                    	cBoardGame_Tetrix.rotate();   
+	                    }
+	                }
+	            }
+
+	            @Override
+	            public void keyPressed(KeyEvent arg0) {
+	                // TODO Auto-generated method stub
+	             }
+	        };
+
+	        pGame.addKeyListener(keyControl);
+	        this.addKeyListener(keyControl);
         tAutoRunDown = new Timer(iDelayMove, new ActionListener() {
 
             @Override
@@ -234,6 +238,7 @@ public class gameTetrixDemo extends JFrame {
                         System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());   
 					String s=cBoardGame_Tetrix.getNextBrickName();
 					 
+					//set function nextPiece
 					if (s=="O"){
 						lblimage.setIcon(imgO);
 					}else{
