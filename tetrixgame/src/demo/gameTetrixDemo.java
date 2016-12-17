@@ -63,7 +63,7 @@ public class gameTetrixDemo extends JFrame {
     JTextArea txtscore2 = new JTextArea("");
     // brick: TYPE, Dimension, status (moving or died), rPos, cPos
     KeyListener keyControl = null;
-    int iDelayMove = 350 ;
+    int iDelayMove = 400 ;
    
     JButton btnStart = new JButton("Resume");
     JButton btnStop = new JButton("Stop");
@@ -202,7 +202,6 @@ public class gameTetrixDemo extends JFrame {
         this.addKeyListener(keyControl);
         // pGame.aData[10][3]=2;
 
-        
         tAutoRunDown = new Timer(iDelayMove, new ActionListener() {
 
             @Override
@@ -220,21 +219,7 @@ public class gameTetrixDemo extends JFrame {
                     int nMoveScore = cBoardGame_Tetrix.clearFullRow();
                     System.out.println("Collapsed "+ nMoveScore + " Line(s).");
 					score = score + nMoveScore;
-//                    String s1;
-//                    BufferedReader bfrIn = new BufferedReader(new InputStreamReader(System.in));
-//                    try {
-//						BufferedWriter bfrOut = new BufferedWriter(new FileWriter("Data/highScore.txt"));
-//						do{
-//							s1 = String.valueOf(score);
-//							s1=bfrIn.readLine();
-//							bfrOut.write(s1);
-//							bfrOut.newLine();
-//						}while(!s1.equalsIgnoreCase("eof"));
-//				        System.out.print("Write Successful");
-//				       
-//                    } catch(IOException e1) {
-//                        System.out.println("Error during reading/writing");
-//                    }
+					
 					
 					txtscore2.setText(""+score);
                     if( cBoardGame_Tetrix.isGameOver()){
@@ -243,6 +228,7 @@ public class gameTetrixDemo extends JFrame {
                         tAutoRunDown.stop();
 
                     } else {
+
                         nNumberPieces++;
                         cBoardGame_Tetrix.newBrick();
                         System.out.println("Next: "+ cBoardGame_Tetrix.getNextBrickName());   
@@ -274,8 +260,11 @@ public class gameTetrixDemo extends JFrame {
                     }
                 }               
             }
-        });        
-    }
+        }); 
+    	
+    	}
+
+    
 
     /**
      * @param args
